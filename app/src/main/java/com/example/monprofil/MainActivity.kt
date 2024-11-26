@@ -35,7 +35,6 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        // Afficher la barre uniquement en mode portrait
                         if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
                             BottomNavigationBar(navController)
                         }

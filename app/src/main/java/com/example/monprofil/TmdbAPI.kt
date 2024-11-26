@@ -1,6 +1,7 @@
 package com.example.monprofil
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Api {
@@ -32,6 +33,18 @@ interface Api {
     //requête recherche d'acteurs
     @GET("search/person")
     suspend fun searchActeur(@Query("query") query: String,
-                                   @Query("api_key") api_key: String): LastActeur
+                             @Query("api_key") api_key: String): LastActeur
 
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getActorsOfMovie(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): Distribution
+
+    @GET("tv/{tv_id}/credits")
+    suspend fun getActorsOfTv(
+        @Path("tv_id") tvId: Int,
+        @Query("api_key") apiKey: String
+    ): Distribution
 }

@@ -47,7 +47,6 @@ fun Profilinfo(name: String, modifier: Modifier = Modifier, onNavigateToFilms: (
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Section des informations (LinkedIn, email, Instagram)
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -92,7 +91,6 @@ fun Profilinfo(name: String, modifier: Modifier = Modifier, onNavigateToFilms: (
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Bouton de navigation vers Films
             Button(
                 onClick = onNavigateToFilms,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -101,7 +99,7 @@ fun Profilinfo(name: String, modifier: Modifier = Modifier, onNavigateToFilms: (
             }
         }
     } else {
-        // Mode paysage
+
         Row(
             modifier = Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically
@@ -172,7 +170,6 @@ fun Profilinfo(name: String, modifier: Modifier = Modifier, onNavigateToFilms: (
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Bouton de navigation vers Films
                 Button(
                     onClick = onNavigateToFilms,
                     modifier = Modifier.align(Alignment.CenterHorizontally)

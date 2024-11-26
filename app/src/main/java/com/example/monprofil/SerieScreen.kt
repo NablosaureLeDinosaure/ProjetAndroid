@@ -37,20 +37,17 @@ fun SeriesScreen(
     val tvShows = mainViewModel.tvShows.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
 
-    // Déclencher la récupération des séries
     LaunchedEffect(Unit) {
         mainViewModel.fetchLatestTvShows()
     }
 
     MonProfilTheme {
         if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            // Mode portrait
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Barre de recherche
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { query ->
@@ -64,14 +61,12 @@ fun SeriesScreen(
                         .padding(16.dp)
                 )
 
-                // Titre de la page
                 Text(
                     text = "Liste des séries",
                     fontSize = 24.sp,
                     modifier = Modifier.padding(16.dp)
                 )
 
-                // Grille des séries
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2), // 2 colonnes
                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
@@ -83,9 +78,7 @@ fun SeriesScreen(
                 }
             }
         } else {
-            // Mode paysage
             Row(modifier = Modifier.fillMaxSize()) {
-                // Barre de navigation verticale
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
@@ -99,13 +92,11 @@ fun SeriesScreen(
                     NavigationItem("Séries", R.drawable.television, navController, "serie")
                 }
 
-                // Contenu principal
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
                         .weight(1f)
                 ) {
-                    // Barre de recherche
                     OutlinedTextField(
                         value = searchQuery,
                         onValueChange = { query ->
@@ -119,7 +110,6 @@ fun SeriesScreen(
                             .padding(16.dp)
                     )
 
-                    // Grille des séries
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(3), // 3 colonnes
                         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
@@ -144,7 +134,7 @@ fun TvItemGrid(tvShow: LastTvData, navController: NavHostController) {
             .clickable { navController.navigate("tvDetail/${tvShow.id}") }, // Navigue vers les détails de la série
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF6200EE) // Fond gris clair pour une apparence élégante
+            containerColor = Color(0xFF6200EE)
         )
     ) {
         Column(
@@ -176,7 +166,7 @@ fun TvItemGrid(tvShow: LastTvData, navController: NavHostController) {
             Text(
                 text = "First Air Date: ${tvShow.first_air_date}",
                 fontSize = 14.sp,
-                color = Color.LightGray // Texte de couleur grise pour plus de cohérence
+                color = Color.LightGray
             )
         }
     }

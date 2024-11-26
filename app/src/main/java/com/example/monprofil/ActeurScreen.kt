@@ -141,7 +141,7 @@ fun ActorItemGrid(actor: LastActeurData) {
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF6200EE) // Fond violet pour correspondre au thème
+            containerColor = Color(0xFF6200EE)
         )
     ) {
         Column(

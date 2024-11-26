@@ -9,15 +9,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainViewModel : ViewModel() {
-    // États pour stocker les listes de films, séries et acteurs récupérés
     val movies = MutableStateFlow<List<LastMovieData>>(emptyList())
     val tvShows = MutableStateFlow<List<LastTvData>>(emptyList())
     val actors = MutableStateFlow<List<LastActeurData>>(emptyList())
+    val cast = MutableStateFlow<List<LastActeurData>>(emptyList())
 
-    // Clé API
     private val apiKey = "d56137a7d2c77892dd70729b2a4ee56b"
 
-    // Configuration de Retrofit
     private val tmdbApi: Api = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/3/")
         .addConverterFactory(MoshiConverterFactory.create())
@@ -59,6 +57,32 @@ class MainViewModel : ViewModel() {
                 Log.d("ActorsScreen", "Fetched actors: ${result.results.size}")
             } catch (e: Exception) {
                 Log.e("ActorsScreen", "Error fetching actors", e)
+            }
+        }
+    }
+
+    // Récupérer les acteurs d'un film
+    fun fetchActorsOfMovie(movieId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = tmdbApi.getActorsOfMovie(movieId, apiKey)
+                cast.value = result.cast
+                Log.d("ActorsOfMovie", "Fetched ${result.cast.size} actors for movie $movieId")
+            } catch (e: Exception) {
+                Log.e("ActorsOfMovie", "Error fetching actors for movie $movieId", e)
+            }
+        }
+    }
+
+    // Récupérer les acteurs d'une série
+    fun fetchActorsOfTv(tvShowId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = tmdbApi.getActorsOfTv(tvShowId, apiKey)
+                cast.value = result.cast
+                Log.d("ActorsOfTv", "Fetched ${result.cast.size} actors for TV show $tvShowId")
+            } catch (e: Exception) {
+                Log.e("ActorsOfTv", "Error fetching actors for TV show $tvShowId", e)
             }
         }
     }

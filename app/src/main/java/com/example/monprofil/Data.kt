@@ -24,7 +24,6 @@ data class LastMovieData(
     val vote_count: Int
 )
 
-//Informations sur les séries
 data class LastTv(
     val page: Int = 0,
     val results: List<LastTvData> = listOf(),
@@ -51,7 +50,6 @@ data class LastTvData(
 )
 
 
-//Informations sur les acteurs
 data class LastActeur(
     val page: Int = 0,
     val results: List<LastActeurData> = listOf(),
@@ -69,6 +67,10 @@ data class LastActeurData(
     val original_name: String = "",
     val popularity: Double = 0.0,
     val profile_path: String = ""
+)
+
+data class Distribution(
+    val cast: List<LastActeurData>
 )
 
 

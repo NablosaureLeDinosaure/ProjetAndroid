@@ -122,7 +122,7 @@ fun FilmsScreen(
 
                     // Grille des films
                     LazyVerticalGrid(
-                        columns = GridCells.Fixed(3), // 3 colonnes
+                        columns = GridCells.Fixed(3),
                         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
                         modifier = Modifier.fillMaxSize()
                     ) {
@@ -170,10 +170,12 @@ fun MovieItemGrid(movie: LastMovieData, navController: NavHostController) {
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
-            .clickable { navController.navigate("movieDetail/${movie.id}") }, // Navigue vers les détails du film
+            .clickable {
+                navController.navigate("movieDetail/${movie.id}")
+            },
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF6200EE) // Fond gris clair pour une apparence élégante
+            containerColor = Color(0xFF6200EE)
         )
     ) {
         Column(
@@ -181,20 +183,21 @@ fun MovieItemGrid(movie: LastMovieData, navController: NavHostController) {
                 .padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Affiche du film
             Image(
                 painter = rememberAsyncImagePainter(
                     ImageRequest.Builder(LocalContext.current)
                         .data(data = "https://image.tmdb.org/t/p/w500${movie.poster_path}")
-                        .apply(block = fun ImageRequest.Builder.() {
-                            crossfade(true)
-                        }).build()
+                        .apply { crossfade(true) }
+                        .build()
                 ),
-                contentDescription = "Movie Poster",
+                contentDescription = "Affiche du film",
                 modifier = Modifier
                     .height(250.dp)
                     .fillMaxWidth(),
                 contentScale = ContentScale.Crop
             )
+            // Titre du film
             Text(
                 text = movie.title,
                 color = Color.White,
@@ -202,12 +205,12 @@ fun MovieItemGrid(movie: LastMovieData, navController: NavHostController) {
                 fontSize = 16.sp,
                 modifier = Modifier.padding(top = 4.dp)
             )
+            // Date de sortie
             Text(
-                text = "Release Date: ${movie.release_date}",
+                text = "Sortie : ${movie.release_date}",
                 fontSize = 14.sp,
-                color = Color.LightGray // Texte de couleur grise pour plus de cohérence
+                color = Color.LightGray
             )
         }
     }
 }
-
