@@ -3,7 +3,10 @@ package com.example.monprofil
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplicationtest.playlistjson
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -13,6 +16,8 @@ class MainViewModel : ViewModel() {
     val tvShows = MutableStateFlow<List<LastTvData>>(emptyList())
     val actors = MutableStateFlow<List<LastActeurData>>(emptyList())
     val cast = MutableStateFlow<List<LastActeurData>>(emptyList())
+
+    val playlist = MutableStateFlow<Playlist?>(null)
 
     private val apiKey = "d56137a7d2c77892dd70729b2a4ee56b"
 
@@ -135,4 +140,16 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
+    //récupère la playlist
+    fun fetchPlaylist(): Playlist {
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(Playlist::class.java).fromJson(playlistjson)!!
+    }
+
+    fun getPlaylist() {
+        playlist.value = fetchPlaylist()
+    }
+
+
 }
