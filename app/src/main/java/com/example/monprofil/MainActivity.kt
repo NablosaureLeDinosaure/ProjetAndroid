@@ -22,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.example.monprofil.ui.theme.MonProfilTheme
 
 class MainActivity : ComponentActivity() {
@@ -66,8 +67,11 @@ fun NavigationGraph(
         composable("profile") {
             Profilinfo(
                 name = "Maceo Dorigny",
-                onNavigateToFilms = { navController.navigate("film") }
+                onNavigateToFilms = { navController.navigate("musique") }
             )
+        }
+        composable("musique") {
+            Musique()
         }
         composable("film") {
             FilmsScreen(mainViewModel = mainViewModel, navController = navController)
@@ -112,7 +116,7 @@ fun BottomNavigationBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    if (currentRoute in listOf("film", "acteur", "serie")) {
+    if (currentRoute in listOf("film", "acteur", "serie", "musique")) {
         NavigationBar {
             NavigationBarItem(
                 icon = {
@@ -153,6 +157,11 @@ fun BottomNavigationBar(navController: NavHostController) {
                 selected = currentRoute == "serie",
                 onClick = { navController.navigate("serie") }
             )
+            NavigationBarItem(icon = {
+                    AsyncImage(
+                        model = "file:///android_asset/images/cover.jpg",
+                        contentDescription = "",)
+                }, label = { Text("Musique") }, selected = currentRoute == "musique", onClick = { navController.navigate("musique") })
         }
     }
 }
