@@ -24,6 +24,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.monprofil.ui.theme.MonProfilTheme
+import com.example.myapplicationtest.playlistjson
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +72,7 @@ fun NavigationGraph(
             )
         }
         composable("musique") {
-            Musique()
+            Musique(mainViewModel = viewModel(), playlist = mainViewModel.playlist.value)
         }
         composable("film") {
             FilmsScreen(mainViewModel = mainViewModel, navController = navController)
